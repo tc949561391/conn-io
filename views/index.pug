@@ -1,0 +1,14 @@
+extends layout/html
+block head
+    title=title
+    link(href='/css/index.css',rel='stylesheet')
+block content
+    ul#messages
+    form(action='')
+        input#m(autocomplete='off')
+        button Send
+block script
+    script(src='/plug/jQuery/jquery.js')
+    script(src='https://cdn.socket.io/socket.io-1.4.5.js')
+    script(src='/plug/socket.io/index.js')
+    script(src='/script/index.js')

@@ -1,0 +1,7 @@
+#!/usr/bin/env node
+var http = require('../init')
+var config = require('../config')
+
+http.listen(config.boot.port,function () {
+    console.log('boot at port '+config.boot.port)
+})
