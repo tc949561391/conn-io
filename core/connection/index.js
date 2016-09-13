@@ -1,23 +1,15 @@
 /**
- * Created by j0 on 2016/9/12.
+ * Created by j0 on 2016/9/13.
  */
-function connected(io) {
-    var chat = io.of('/chat')
-    chat.on('connection', function (socket) {
-        socket.join('room1')
-        console.log(socket.id + ': connected');
-        socket.broadcast.send(socket.id + ':join')
-
-        socket.on('message', function (msg) {
-            chat.to('room2').emit('message', msg+'1');
-        })
-        socket.on('disconnect', function () {
-            socket.broadcast.send(socket.id + ':leave')
-            console.log(socket.id + ': disconnected');
-        });
-        socket.on('chat message', function (msg) {
-            chat.to('room1').emit('chat message', msg);
-        })
+var rf = require("fs");
+var path = require('path')
+module.exports = function (io) {
+    rf.readdir(path.join(__dirname, '../nsps'), function (err, nsps) {
+        for (var i in nsps) {
+            var nsp = io.of(nsps[i])
+            nsp.on('connection', function (socket) {
+                require('../nsps/' + nsps[i])(socket, nsp)
+            })
+        }
     })
 }
-module.exports = connected

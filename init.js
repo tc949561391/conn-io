@@ -11,6 +11,7 @@ var io = require('socket.io')(http);
 var compass = require('node-compass')
 var connect=require('./core/connection')
 var redis=require('socket.io-redis')
+var config=require('./config')
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 app.use(bodyParser.json())
@@ -28,14 +29,14 @@ app.get('/', function (req, res) {
     })
 });
 
-
 process.on('uncaughtException', function (err) {
     //打印出错误
     console.log(err);
     //打印出错误的调用栈方便调试
     console.log(err.stack)
 });
-io.adapter(redis({ host: 'localhost', port: 6379 }));
+io.adapter(redis(config.socketAdapter));
+
 connect(io)
 
 
