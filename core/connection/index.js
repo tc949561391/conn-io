@@ -8,7 +8,7 @@ module.exports = function (io) {
         for (var i in nsps) {
             var nsp = io.of(nsps[i])
             nsp.on('connection', function (socket) {
-                require('../nsps/' + nsps[i])(socket, nsp)
+                require('../nsps/' + nsps[i])(socket, nsp,io)
             })
         }
     })

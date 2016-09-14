@@ -51,6 +51,10 @@ function registerListern(socket) {
     socket.on('one to one message', function (from, message) {
         $('#messages').append($('<li>').text(from + ":" + message));
     })
+
+    socket.on('public', function (from, message) {
+        $('#messages').append($('<li>').text('publc:'+from + ":" + message));
+    })
 }
 var fg = true
 $('input').keydown(function (event) {
