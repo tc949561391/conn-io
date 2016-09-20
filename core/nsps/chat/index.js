@@ -7,7 +7,7 @@ var init = require('../../init')
 
 var tokenStore = require('../../redis/tokenStore')
 var userStore = require('../../redis/userStore')
-function connectedChat(socket, chat,io) {
+function connectedChat(socket, chat) {
     console.log('1~   one persion(' + socket.id + ') connection success  (before auth)')
 
     //设置身份验证的时间期限
@@ -46,15 +46,13 @@ function connectedChat(socket, chat,io) {
                 socket.broadcast.to(to).emit("one to one message", socket.id, message)
                 cb(null, 'success')
             })
-            
-            
-            
+
+
             socket.on('public',function (message) {
                 io.to(socket.clientId).emit('public',socket.userId,message)
                 chat.to(socket.clientId).emit('public',socket.userId,message)
                 socket.broadcast.in(socket.clientId).emit('public',socket.userId,message)
             })
-
         })
     })
 
