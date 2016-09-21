@@ -31,6 +31,20 @@ $(function () {
         socket.on('join', function (who) {
             $('#messages').append($('<li>').css('color', 'green').css("text-align", "center").text(who + ' join'));
         })
+        $("#imgButton").click(function () {
+                var file = document.getElementById("img").files[0];
+                var reader = new FileReader();
+                reader.readAsDataURL(file);
+                reader.onload = function (f) {
+                    socket.emit('pppbinery', this.result)
+                    $('#messages').append($('<li>').css('color', 'green').append($('<img>').attr('src', this.result)))
+                }
+                return false
+            }
+        )
+        socket.on('pppbinery', function (data) {
+            $('#messages').append($('<li>').css('color', 'green').append($('<img>').attr('src', data)))
+        })
     })
 })
 
@@ -38,6 +52,8 @@ function sctoButton(id) {
     var div = document.getElementById(id);
     div.scrollHeight = div.scrollHeight;
 }
+
+
 
 
 

@@ -6,8 +6,11 @@ block head
 block content
     ul#messages
     form(action='')
+        div#result
         input#m(autocomplete='off')
         button.btn.btn-primary Send
+        input#img(type='file')
+        button#imgButton.btn.btn-success Send
 block script
     script(src='/plug/jQuery/jquery.js')
     script(src='/script/tether/tether.min.js')
